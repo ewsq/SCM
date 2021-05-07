@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ULearn课程</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{static/css/htmleaf-demo.css}">
+    <link rel="stylesheet" th:href="@{static/css/baguetteBox.min.css}">
+    <link rel="stylesheet" th:href="@{static/css/gallery-clean.css}">
+    <link th:href="@{static/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{static/css/scojs.css}" rel="stylesheet">
+    <link th:href="@{static/css/colpick.css}" rel="stylesheet">
+    <link th:href="@{static/css/main.css}" rel="stylesheet" >
+    <link th:href="@{static/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{static/css/scojs.css}" rel="stylesheet">
+    <link th:href="@{static/css/colpick.css}" rel="stylesheet">
+    <link th:href="@{static/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{static/css/main.css}" rel="stylesheet" >
+    <link th:href="@{static/css/layui.css}" rel="stylesheet">
+
+    <style>
+        a:hover { color: #F00; text-decoration: underline;background-color: #7c9192}
+    </style>
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item layui-this layui-col-md-offset1"><a th:href="@{/index}">ULearn课堂</a></li>
+    <li style="display: inline-block" class="layui-nav-item layui-col-md-offset9 dropdown no-arrow" sec:authorize="isAuthenticated()">
+        <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span style="color: #fff;text-shadow: none;">我</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+             aria-labelledby="userDropdown">
+            <a class="dropdown-item" th:href="@{/profile}" style="color: #0f0f10">
+                <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                个人
+            </a>
+            <a class="dropdown-item" href="#" style="color: #0f0f10">
+                <i class="fas fa-cogs fa-sm fa-fw mr-2"></i>
+                设置
+            </a>
+            <a class="dropdown-item" href="#" style="color: #0f0f10">
+                <i class="fas fa-list fa-sm fa-fw mr-2"></i>
+                活动
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal" style="color: #0f0f10">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                退出
+            </a>
+        </div>
+    </li>
+</ul>
+<div class="htmleaf-container">
+
+    <div class="container gallery-container">
+
+        <p class="page-description text-left" style="padding: 90px 0px 0px 0px">精选好课，不容错过</p>
+
+        <div class="tz-gallery">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 ">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson1}">
+                            <img th:src="@{static/images/lesson4.png}" alt="Park">
+                        </a>
+                        <div class="caption">
+                            <h3>AE教程合辑</h3>
+                            <p>影视后期必备</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson}">
+                            <img th:src="@{static/images/lesson5.png}" alt="Bridge">
+                        </a>
+                        <div class="caption">
+                            <h3>Web前段开发</h3>
+                            <p>从零基础到全栈开发工程师</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson}">
+                            <img th:src="@{static/images/lesson6.png}" alt="Tuneel">
+                        </a>
+                        <div class="caption">
+                            <h3>uni-app实战开发</h3>
+                            <p>带你一般般开发，实战直播app全栈开发</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="page-description text-left">职场必备，快人一步</p>
+        <div class="tz-gallery">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson}">
+                            <img th:src="@{static/images/lesson1.png}" alt="Rails">
+                        </a>
+                        <div class="caption">
+                            <h3>Office从入门到精通</h3>
+                            <p>工作必不可少的技能，高效工作</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson}">
+                            <img th:src="@{static/images/lesson2.png}" alt="Traffic">
+                        </a>
+                        <div class="caption">
+                            <h3>深度学习入门到应用</h3>
+                            <p>必不可少的技能点，拿高薪的必备</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson}">
+                            <img th:src="@{static/images/lesson3.png}" alt="Rails">
+                        </a>
+                        <div class="caption">
+                            <h3>Python+VBA</h3>
+                            <p>7周快速掌握开发</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="page-description text-left">免费好课</p>
+        <div class="tz-gallery">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson}">
+                            <img th:src="@{static/images/lesson7.png}" alt="Rails">
+                        </a>
+                        <div class="caption">
+                            <h3>硬笔书法系列·学会一手好字</h3>
+                            <p>字如其人，见字如人，一手好字，打造完美的第一印象</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson}">
+                            <img th:src="@{static/images/lesson8.png}" alt="Traffic">
+                        </a>
+                        <div class="caption">
+                            <h3>Python数据分析</h3>
+                            <p>比Excel更好用的数据管理工具</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a class="lightbox" th:href="@{/lesson}">
+                            <img th:src="@{static/images/lesson9.png}" alt="Rails">
+                        </a>
+                        <div class="caption">
+                            <h3>大数据分析</h3>
+                            <p>21周高效掌握数据精英必备技能</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<script th:src="@{static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{static/js/layui.all.js}"></script>
+<script th:src="@{static/layer/layer.js}"></script>-->
+<script th:src="@{static/js/jquery.min.js}"></script>
+<script th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{static/js/layui.all.js}"></script>
+<script th:src="@{static/layer/layer.js}"></script>
+</body>
+</html>

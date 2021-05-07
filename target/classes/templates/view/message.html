@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>社区交流</title>
+
+    <link th:href="@{static/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{static/css/scojs.css}" rel="stylesheet">
+    <link th:href="@{static/css/colpick.css}" rel="stylesheet">
+    <link th:href="@{static/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{static/css/main.css}" rel="stylesheet" >
+    <link th:href="@{static/css/layui.css}" rel="stylesheet">
+
+    <style>
+        a:hover { color: #F00; text-decoration: underline;background-color: #7c9192}
+    </style>
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item layui-this layui-col-md-offset1"><a th:href="@{/index}">ULearn课堂</a></li>
+    <li style="display: inline-block" class="layui-nav-item layui-col-md-offset9 dropdown no-arrow" sec:authorize="isAuthenticated()">
+        <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span style="color: #fff;text-shadow: none;">我</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+             aria-labelledby="userDropdown">
+            <a class="dropdown-item" th:href="@{/profile}" style="color: #0f0f10">
+                <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                个人
+            </a>
+            <a class="dropdown-item" href="#" style="color: #0f0f10">
+                <i class="fas fa-cogs fa-sm fa-fw mr-2"></i>
+                设置
+            </a>
+            <a class="dropdown-item" href="#" style="color: #0f0f10">
+                <i class="fas fa-list fa-sm fa-fw mr-2"></i>
+                活动
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal" style="color: #0f0f10">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                退出
+            </a>
+        </div>
+    </li>
+</ul>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md5" style="padding: 100px;">
+            <button class="layui-btn layui-btn-radius" id="comment">发表评论</button>
+            <p style="padding: 12px 0px 0px 0px;">发表你的感想，分享你的心得，</p></br>
+            <p style="padding: 0px 12px 0px 0px;">但是记得友好地面对不一样的意见，感受</p></br>
+            <p>思想的碰撞..</p>
+        </div>
+        <div class="layui-col-md7">
+            <div class="layui-inline" style="padding: 80px;">
+                <ul class="layui-timeline" id="resText">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="username" style="display: none"><span sec:authentication="name">22</span></div>
+
+    <script th:src="@{static/js/jquery.min.js}"></script>
+    <script th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{static/js/layui.all.js}"></script>
+    <script th:src="@{static/layer/layer.js}"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                url: "/getAllMsg",
+                dataType: "json",
+                success: function (res) {
+                    $('#resText').empty();  //清空resText里面的所有内容
+                    //console.log(res);
+                    jQuery.each(res.data, function (i, item) {
+                       // console.log(item.uid);
+                        //var uid = item.uid;
+                        var uid = item.uid;
+                        var name = item.name;
+                        var text = item.text;
+                        var time = item.time
+                        var leaveMsg = item.leaveMsg;
+                        var html = '';
+                        html += '<li class="layui-timeline-item">' +
+                            '<i class="layui-icon layui-timeline-axis">&#xe63f;</i>' +
+                            '<div class="layui-timeline-content layui-text">' +
+                            '<h2 class="layui-timeline-title">'+ name + '</h2>' +
+                            '<p>' + time + '</p>' + '</br>' +
+                            '<h3>' + text + '&emsp;' +
+                            '<button class="layui-btn" id="ComMsg'+i+'">回复</button>' +
+                            '</h3>' + '</div></li>';
+                        if(leaveMsg!="") {
+                            html += '<ul><li style="padding: 20px;">'+ '他人回复:  ' + leaveMsg + '</li></ul>';
+                        }
+
+                        $('#resText').append(html);
+                        $('#ComMsg'+i).on('click', function(){
+                            layer.prompt({ formType: 2,
+                                btn: ['提交', '取消', ],
+                                closeBtn: 2,
+                                anim: 2,
+                                move: false,
+
+                                value: '输入评论',
+                                title: '评论',
+                                area: ['700px', '300px']
+                            }, function(value, index, elem){
+                                    $.ajax({
+                                        url: '/addComment',
+                                        type: 'POST',
+                                        contentType: 'application/json;charset=utf-8',
+                                        data : JSON.stringify({'id':uid,'leaveMsg':value}),
+                                        success: function(res){
+                                            // 成功处理逻辑
+                                        },
+                                        error: function(res){
+                                            // 错误时处理逻辑
+                                        }
+                                    });
+                                layer.close(index);
+                                window.location.reload();
+                            });
+                        });
+                    });
+                }
+            });
+            var username = $("#username").text();
+            $('#comment').on('click', function(){
+                layer.prompt({ formType: 2,
+                    btn: ['提交', '取消', ],
+                    resize: false,
+                    scrollbar: false,
+                    closeBtn: 2,
+                    anim: 2,
+                    move: false,
+
+                    value: '输入评论',
+                    title: '评论',
+                    area: ['700px', '300px']
+                }, function(value, index, elem){
+                    $.ajax({
+                        url: '/comment',
+                        type: 'POST',
+                        contentType: 'application/json;charset=utf-8',
+                        data : JSON.stringify({'username':username,'comment':value}),
+                        success: function(res){
+                            // 成功处理逻辑
+                        },
+                        error: function(res){
+                            // 错误时处理逻辑
+                        }
+                    });
+                    layer.close(index);
+                    window.location.reload();
+
+
+                });
+            });
+
+
+        });
+
+    </script>
+</body>
+
+</html>

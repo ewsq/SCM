@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Mobile Meta -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Site Meta -->
+    <title>ULearn</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Site Icons -->
+    <link rel="shortcut icon" th:href="@{/static/images/favicon.ico}" type="image/x-icon" />
+    <!--<link rel="apple-touch-icon" href="images/apple-touch-icon.png">-->
+
+	<!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet"> 
+	
+    <!-- Custom & Default Styles -->
+	<link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/semantic.min.css}">
+
+
+    <script th:src="@{/static/js/html5shiv.js}"></script>
+	<script th:src="@{/static/js/respond.min.js}"></script>
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/semantic.min.js}"></script>
+
+</head>
+<body>
+<!-- LOADER -->
+<div id="preloader">
+    <img class="preloader" th:src="@{/static/images/loader.gif}" alt="">
+</div><!-- end loader -->
+<!-- END LOADER -->
+
+<div id="wrapper">
+    <!-- BEGIN # MODAL LOGIN -->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
+                    <form id="login-form">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="flaticon-add" aria-hidden="true"></span>
+                        </button>
+                        <div class="modal-body">
+                            <input class="form-control" type="text" placeholder="输入搜索的内容" required>
+                        </div>
+                    </form><!-- End # Login Form -->
+                </div><!-- End # DIV Form -->
+            </div>
+        </div>
+    </div>
+    <!-- END # MODAL LOGIN -->
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-default yamm">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="logo-normal">
+                        <a class="navbar-brand" href="index.html"><img th:src="@{/static/images/logo.png}" alt=""></a>
+                    </div>
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="iconitem" sec:authorize="hasRole('ROLE_Teacher') or hasRole('ROLE_Admin')">
+                        <!--<li class="iconitem" sec:authorize="h">-->
+                            <a th:href="@{/dashboard}">
+                                <i class="id badge icon"></i> &nbsp;管理后台
+                            </a>
+                        </li>
+                        <li><a th:href="@{/index}">主页</a></li>
+                        <li class="dropdown yamm-fw yamm-half"><a href="#" data-toggle="dropdown" class="dropdown-toggle active">导航栏 <b class="fa fa-angle-down"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="yamm-content clearfix">
+                                        <div class="row-fluid">
+                                            <div class="col-md-6 col-sm-6">
+                                                <h4>Course Pages</h4>
+                                                <ul>
+                                                    <li><a href="#">Web开发</a></li>
+                                                    <li><a href="#">Python数据库</a></li>
+                                                    <li><a href="#">AE动画</a></li>
+                                                    <li><a href="#">后期剪辑</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="menu-widget text-center">
+                                                    <div class="image-wrap entry">
+                                                        <img th:src="@{/static/images/baogao.png}" alt="" class="img-responsive">
+                                                        <div class="magnifier">
+                                                            <a href="#" title=""><i class="flaticon-add"></i></a>
+                                                        </div>
+                                                    </div><!-- end image-wrap -->
+                                                    <a href="#" class="menu-button">访问更多</a>
+                                                </div><!-- end widget -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/lesson}">课程</a></li>
+                        <li class="dropdown hassubmenu">
+                            <a th:href="@{/message}">论坛 </a>
+                        </li>
+                        <li><a th:href="@{/resource}">资源下载</a></li>
+                        <li><a href="page-contact.html">联系</a></li>
+                        <li class="iconitem"><a href="#" data-toggle="modal" data-target="#login-modal"><i class="fa fa-search"></i></a></li>
+                        <!--<li class="iconitem"><a th:href="@{/login}"><i class="user outline icon"></i> &nbsp;登录</a></li>-->
+                        <li class="iconitem" sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/login}"><i class="user outline icon"></i> &nbsp;登录</a>
+                        </li>
+                        <li class="iconitem" sec:authorize="isAuthenticated()">
+                            <a th:href="@{/logout}">
+                                <span sec:authentication="name"></span>
+                                <i class="sign-out icon"></i> &nbsp;注销
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav><!-- end navbar -->
+        </div><!-- end container -->
+    </header>
+
+    <section id="home" class="video-section js-height-full">
+        <div class="overlay"></div>
+        <div class="home-text-wrapper relative container">
+            <div class="home-message">
+                <p>ULearn， 一起学</p>
+                <small style="color: #0C0C0C">一个发现学习，爱上学习的平台</small>
+                <div class="btn-wrapper">
+                    <div class="text-center">
+                        <a href="#" class="btn btn-primary wow slideInLeft">了解 更多</a> &nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-default wow slideInRight">现在 加入</a>
+                    </div>
+                </div><!-- end row -->
+            </div>
+        </div>
+        <div class="slider-bottom">
+            <a href="#more" id="turnmore"><span>探索更多 <i class="fa fa-angle-down"></i></span></a>
+        </div>
+    </section>
+
+    <section class="section" id="more">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 hidden-sm hidden-xs">
+                    <div class="custom-module">
+                        <img th:src="@{/static/images/device.png}" alt="" class="img-responsive wow slideInLeft">
+                    </div><!-- end module -->
+                </div><!-- end col -->
+                <div class="col-md-8">
+                    <div class="custom-module p40l">
+                        <h2>资深师资 <mark>保障</mark> 教学质量<br>
+                            国内外名校毕业，具有丰富的授课经验 <br>
+                        </h2>
+
+                        <p>五步法打磨一堂好课：第一步，每节课由行业内十年以上经验优秀老师讨论形成最优方法论，找到好方法；第二步，根据教学目标，情景化设计课程，让课堂变得好玩；第三步，H5互动课件，战队PK，语音连麦等，打造让孩子享受的产品体验；第四步，1轮磨课+1轮内测+1轮集体备课，反复打磨，保证品质；第五步，出勤率，完课率，参与率，正确率，数据化课程复盘。</p>
+
+                        <hr class="invis">
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 first">
+                                <ul class="check">
+                                    <li>名校教师</li>
+                                    <li>资深教学</li>
+                                    <li>科学传授</li>
+                                    <li>注重方法</li>
+                                    <li>因材施教</li>
+                                </ul><!-- end check -->
+                            </div><!-- end col-lg-4 -->
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <ul class="check">
+                                    <li>本地化教学</li>
+                                    <li>线上线下相结合</li>
+                                    <li>课内校外相结合</li>
+                                    <li>针对性量身定制</li>
+                                    <li>最大程度帮助，学会学习</li>
+                                </ul><!-- end check -->
+                            </div><!-- end col-lg-4 -->
+                        </div><!-- end row -->
+
+                        <hr class="invis">
+
+                        <div class="btn-wrapper">
+                            <a href="#" class="btn btn-primary">了解更多</a>
+                        </div>
+
+                    </div><!-- end module -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section>
+
+    <section class="section gb">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>课堂 <mark>真实</mark> 体验</h3>
+                <p>丰富的课堂形式·满足多场景学习需求，线上线下更多选择，教学品质始终如一</p>
+            </div><!-- end title -->
+
+            <div id="owl-01" class="owl-carousel owl-theme owl-theme-01">
+                <div class="caro-item">
+                    <div class="course-box">
+                        <div class="image-wrap entry">
+                            <img th:src="@{/static/images/kejian.png}" alt="" class="img-responsive">
+                            <div class="magnifier">
+                                <a href="#" title=""><i class="flaticon-add"></i></a>
+                            </div>
+                        </div><!-- end image-wrap -->
+                        <div class="course-details">
+                            <h4>
+                                <small>动画 课件</small>
+                                <a href="#" title="">更生动形象地理解知识点</a>
+                            </h4>
+                            <p>ULearn有着丰富先进的教学资源，无论是硬件还是软件</p>
+                        </div><!-- end details -->
+                    </div><!-- end box -->
+                </div><!-- end col -->
+
+                <div class="caro-item">
+                    <div class="course-box">
+                        <div class="image-wrap entry">
+                            <img th:src="@{/static/images/danmu.png}" alt="" class="img-responsive">
+                            <div class="magnifier">
+                                <a href="#" title=""><i class="flaticon-add"></i></a>
+                            </div>
+                        </div><!-- end image-wrap -->
+                        <div class="course-details">
+                            <h4>
+                                <small>弹幕 互动</small>
+                                <a href="#" title="">有趣的弹幕交流，让学习更有趣</a>
+                            </h4>
+                            <p>非传统性的教师单向输出，学生被动接收，交流互动，使得学习的氛围更好，动力更足 </p>
+                        </div><!-- end details -->
+                    </div><!-- end box -->
+                </div><!-- end col -->
+
+                <div class="caro-item">
+                    <div class="course-box">
+                        <div class="image-wrap entry">
+                            <img th:src="@{/static/images/luntan.png}" alt="" class="img-responsive">
+                            <div class="magnifier">
+                                <a href="#" title=""><i class="flaticon-add"></i></a>
+                            </div>
+                        </div><!-- end image-wrap -->
+                        <div class="course-details">
+                            <h4>
+                                <small>互助 交流</small>
+                                <a href="#" title="">一个供大家分享交流学习心得的平台</a>
+                            </h4>
+                            <p>课后的知识交流，思想的碰撞，检验是否真的掌握了所学的知识</p>
+                        </div><!-- end details -->
+                    </div><!-- end box -->
+                </div><!-- end col -->
+
+                <div class="caro-item">
+                    <div class="course-box">
+                        <div class="image-wrap entry">
+                            <img th:src="@{/static/images/baogao.png}" alt="" class="img-responsive">
+                            <div class="magnifier">
+                                <a href="#" title=""><i class="flaticon-add"></i></a>
+                            </div>
+                        </div><!-- end image-wrap -->
+                        <div class="course-details">
+                            <h4>
+                                <small>学习 报告</small>
+                                <a href="#" title="">对每名学员的学习情况进行汇总，帮助查漏补缺</a>
+                            </h4>
+                            <p>系统自动分析每名学员的学习情况，进度分析，着重强化不足的地方</p>
+                        </div><!-- end details -->
+                    </div><!-- end box -->
+                </div><!-- end col -->
+
+                <div class="caro-item">
+                    <div class="course-box">
+                        <div class="image-wrap entry">
+                            <img th:src="@{/static/images/baogao.png}" alt="" class="img-responsive">
+                            <div class="magnifier">
+                                <a href="#" title=""><i class="flaticon-add"></i></a>
+                            </div>
+                        </div><!-- end image-wrap -->
+                        <div class="course-details">
+                            <h4>
+                                <small>浓厚 学习氛围</small>
+                                <a href="#" title="">小班教学，因材施教，给予全方位关注</a>
+                            </h4>
+                            <p>科学的等级体系，稳步实现自我提升</p>
+                        </div><!-- end details -->
+                    </div><!-- end box -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+
+            <hr class="invis">
+
+            <div class="section-button text-center">
+                <a href="#" class="btn btn-primary">了解所有课程</a>
+            </div>
+        </div><!-- end container -->
+    </section>
+
+    <section class="section db p120">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tagline-message text-center">
+                        <h3>课堂真实体验</h3>
+                    </div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section><!-- end section -->
+
+    <section class="section gb nopadtop">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="box m30">
+                        <i class="flaticon-computer-tool-for-education"></i>
+                        <h4>学习策略制定</h4>
+                        <p>科学性，针对性，制定不同的学习路线</p>
+                        <a href="#" class="readmore">了解更多</a>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col-md-6">
+                    <div class="box m30">
+                        <i class="flaticon-monitor-tablet-and-smartohone"></i>
+                        <h4>多平台协调</h4>
+                        <p>线上线下，手机端，PC端，随时随地，满足你学习的愿望</p>
+                        <a href="#" class="readmore">了解更多</a>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col-md-3">
+                    <div class="box m30">
+                        <i class="flaticon-download-business-statistics-symbol-of-a-graphic"></i>
+                        <h4>学习历程分析</h4>
+                        <p>会对学员所选择的课程，设定的目标等，来全面分析，汇总展示</p>
+                        <a href="#" class="readmore">了解更多</a>
+                    </div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+
+            <hr class="invis">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box">
+                        <i class="flaticon-html5"></i> <i class="flaticon-css-3"></i>
+                        <h4>小组PK</h4>
+                        <p>活跃班级气氛，提高大家学习的积极性和参与度。小组PK以总登攀为依据，统计口径包括作业、小结、课前或课后练习。奖励计算方法：最高奖励登攀*（作业小结练习实际完成次数/应完成次数）</p>
+                    </div>
+                </div><!-- end col -->
+
+                <div class="col-md-6">
+                    <div class="box">
+                        <i class="flaticon-html-coding"></i>
+                        <h4>课题互动题</h4>
+                        <p>课堂互动研究意味着从“课堂控制论”走向“课堂互动论”,意味着从“技术性实践”走向“反思性实践”研究,它体现了“儿童本位”的教学观。自主活动、集体思维、教师学习共同体是“课堂互动”研究的关键概念</p>
+                    </div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section>
+
+    <section class="section db">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="stat-count">
+                        <h4 class="stat-timer">1230</h4>
+                        <h3><i class="flaticon-black-graduation-cap-tool-of-university-student-for-head"></i> 培养 学生</h3>
+                    </div><!-- stat-count -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-4">
+                    <div class="stat-count">
+                        <h4 class="stat-timer">331</h4>
+                        <h3><i class="flaticon-online-course"></i> 增设 课程</h3>
+                    </div><!-- stat-count -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-4">
+                    <div class="stat-count">
+                        <h4 class="stat-timer">8901</h4>
+                        <h3><i class="flaticon-coffee-cup"></i> 服务 中心</h3>
+                    </div><!-- stat-count -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>良好口碑</h3>
+                <p>本地化教学，广受社会认同</p></br>
+                <p>从中国走向世界，千万家长的口碑首选</p>
+            </div><!-- end title -->
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="box testimonial">
+                        <p class="testiname"><strong>--广州 家长</strong></p>
+                        <p>”感谢ULearn课堂，感谢所有为他付出的老师“</p>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div><!-- end testimonial -->
+                    <img th:src="@{/static/images/jiazhang1.png}" alt="" class="img-responsive">
+                </div><!-- end col -->
+
+                <div class="col-md-4">
+                    <div class="box testimonial">
+                        <p class="testiname"><strong>--深圳 家长</strong></p>
+                        <p>“ULearn课堂真的特别棒，软硬件都非常优惠，很特别”</p>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                    </div><!-- end testimonial -->
+                    <img th:src="@{/static/images/jiazhang2.png}" alt="" class="img-responsive">
+                </div><!-- end col -->
+
+                <div class="col-md-4">
+                    <div class="box testimonial">
+                        <p class="testiname"><strong>--上海 家长</strong></p>
+                        <p>“在ULearn课堂，我的孩子找到了兴趣点，学会了努力拼搏”</p>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div><!-- end testimonial -->
+                    <img th:src="@{/static/images/jiazhang3.png}" alt="" class="img-responsive">
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section>
+
+    <section class="section bgcolor1">
+        <div class="container">
+            <a href="#">
+                <div class="row callout">
+                    <div class="col-md-4 text-center">
+                        <h4>此刻起，开启你的新人生！</h4>
+                    </div><!-- end col -->
+
+                    <div class="col-md-8">
+                        <p class="lead">一次改变自己的机会，一个发现自我，成就明天的机会 </p>
+                    </div>
+                </div><!-- end row -->
+            </a>
+        </div><!-- end container -->
+    </section>
+
+    <footer class="section footer noover">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="widget clearfix">
+                        <h3 class="widget-title">商业合作</h3>
+                        <div class="newsletter-widget">
+                            <p>相关合作详情<br> <a href="#">可以联系您的专属客服</a>.</p>
+                        </div><!-- end newsletter -->
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+
+                <div class="col-lg-3 col-md-3">
+                    <div class="widget clearfix">
+                        <h3 class="widget-title">加入我们</h3>
+                        <p>如果你对ULearn团队有兴趣的话，欢迎成为我们的一员</p>
+                        <a href="#" class="readmore">壮大我们</a>
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+
+                <div class="col-lg-3 col-md-3">
+                    <div class="widget clearfix">
+                        <h3 class="widget-title">相关</h3>
+                        <div class="tags-widget">
+                            <ul class="list-inline">
+                                <li><a href="#">课程</a></li>
+                                <li><a href="#">教育</a></li>
+                                <li><a href="#">发展</a></li>
+                                <li><a href="#">塑造</a></li>
+                                <li><a href="#">学习</a></li>
+                                <li><a href="#">信赖</a></li>
+                                <li><a href="#">值得信赖</a></li>
+                            </ul>
+                        </div><!-- end list-widget -->
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+
+                <div class="col-lg-2 col-md-2">
+                    <div class="widget clearfix">
+                        <h3 class="widget-title">支持</h3>
+                        <div class="list-widget">
+                            <ul>
+                                <li><a href="#">联系我们</a></li>
+                                <li><a href="#">意见反馈</a></li>
+                                <li><a href="#">漏洞提交</a></li>
+                                <li><a href="#">版权声明</a></li>
+                                <li><a href="#">帮助中心</a></li>
+                                <li><a href="#">支付问题</a></li>
+                            </ul>
+                        </div><!-- end list-widget -->
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </footer><!-- end footer -->
+
+    <div class="copyrights">
+        <div class="container">
+            <div class="clearfix">
+                <div class="pull-left">
+                    <div class="cop-logo">
+                        <a href="#"><img th:src="@{/static/images/logo.png}" alt=""></a>
+                    </div>
+                </div>
+
+                <div class="pull-right">
+                    <div class="footer-links">
+                        <ul class="list-inline">
+                            <li>Copyright &copy; 2021</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end container -->
+    </div><!-- end copy -->
+</div><!-- end wrapper -->
+<input type="hidden" th:value="${username}" id="staff_name2"/>
+<!-- jQuery Files -->
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/carousel.js}"></script>
+<script th:src="@{/static/js/animate.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<!-- VIDEO BG PLUGINS -->
+<script th:src="@{/static/js/videobg.js}"></script>
+
+<script>
+    $('#turnmore').click(function () {
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top
+        }, 500);
+        return false;
+    });
+</script>
+</body>
+</html>

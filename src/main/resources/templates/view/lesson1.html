@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>ULearn课堂</title>
+    <link th:href="@{static/css/layui.css}" rel="stylesheet">
+    <link th:href="@{static/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{static/css/scojs.css}" rel="stylesheet">
+    <link th:href="@{static/css/colpick.css}" rel="stylesheet">
+    <link th:href="@{static/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{static/css/main.css}" rel="stylesheet" >
+
+    <script th:src="@{static/js/layui.all.js}"></script>
+
+    <style type="text/css">
+        body {
+            background-image: url("../../static/images/bg-book.png");
+            background-repeat: repeat;
+            position: absolute;//使用绝对定位将页面铺满
+            top:400px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item layui-this layui-col-md-offset1"><a th:href="@{/index}">ULearn课堂</a></li>
+        <li class="layui-nav-item layui-col-md-offset5 "><i class="layui-nav-bar"></i> <a href="">我的学习</a></li>
+        <li class="layui-nav-item "><a href="">通知中心</a></li>
+        <li class="layui-nav-item "><a href="">最新活动</a></li>
+        <li class="layui-nav-item "><a href="">关注我们</a></li>
+<!--        <li style="display: inline-block" class=" dropdown no-arrow">
+            <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="name"></span>
+                &lt;!&ndash;<span style="color: #fff">我</span>&ndash;&gt;
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"
+                 aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    个人
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    设置
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                    活动
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    退出
+                </a>
+            </div>
+        </li>-->
+        <li class="layui-nav-item ">
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    我
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" th:href="@{/profile}" style="color: #0C0C0C">个人信息修改</a>
+                    <a class="dropdown-item" href="#" style="color: #0C0C0C">设置</a>
+                    <a class="dropdown-item" th:href="@{/logout}" style="color: #0C0C0C">退出</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="bgb">
+
+        <div id="danmup" style="left: 50%;margin-left:-400px;top:100px"></div>
+
+        <div style="display: none">
+            <span class="glyphicon" aria-hidden="true">&#xe072</span>
+            <span class="glyphicon" aria-hidden="true">&#xe073</span>
+            <span class="glyphicon" aria-hidden="true">&#xe242</span>
+            <span class="glyphicon" aria-hidden="true">&#xe115</span>
+            <span class="glyphicon" aria-hidden="true">&#xe111</span>
+            <span class="glyphicon" aria-hidden="true">&#xe096</span>
+            <span class="glyphicon" aria-hidden="true">&#xe097</span>
+        </div>
+
+    </div>
+
+
+    <script th:src="@{static/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <script th:src="@{static/js/jquery.min.js}"></script>
+    <script th:src="@{static/js/jquery.shCircleLoader.js}"></script>
+    <script th:src="@{static/js/sco.tooltip.js}"></script>
+    <script th:src="@{static/js/colpick.js}"></script>
+    <script th:src="@{static/js/jquery.danmu.js}"></script>
+    <script th:src="@{static/js/main.js}"></script>
+    <script>
+        $("#danmup").DanmuPlayer({
+            src:"../../static/videos/level5.mp4",
+            height: "480px", //区域的高度
+            width: "800px" //区域的宽度
+            ,urlToGetDanmu:"../static/danmu/query.php"
+            ,urlToPostDanmu:"../static/danmu/stone.php"
+        });
+
+        $("#danmup .danmu-div").danmu("addDanmu",[
+            { "text":"上课啦啦啦啦" ,color:"white",size:1,position:0,time:2}
+            ,{ "text":"我准备好了！我准备好了！" ,color:"green",size:1,position:0,time:3}
+            ,{ "text":"哈哈哈啊哈" ,color:"black",size:1,position:0,time:10}
+            ,{ "text":"111111" ,color:"yellow" ,size:1,position:1,time:3}
+            ,{ "text":"加油" , color:"red" ,size:1,position:2,time:9}
+            ,{ "text":"好好学习，天天向上" ,color:"orange",size:1,position:1,time:3}
+
+        ])
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo4.Mapper.ResourceMapper">
+    <select id="getAllResource" resultType="Resource">
+        select * from resource
+    </select>
+
+    <delete id="deleteResource" parameterType="int">
+        delete from resource where id=#{id}
+    </delete>
+
+    <update id="updateResource" parameterType="Resource">
+        update resource set title=#{title},title2=#{title2},intro=#{intro},filepath=#{filepath} where id=#{id}
+    </update>
+
+    <insert id="addResource">
+        insert into resource(title,title2,intro,filepath) values(#{title},#{title2},#{intro},#{filepath})
+    </insert>
+
+    <select id="getPathById" parameterType="int" resultType="string">
+        select filepath from resource where id=#{id}
+    </select>
+
+    <select id="getFileById" parameterType="int" resultType="string">
+        select filepath from resource where id=#{id}
+    </select>
+</mapper>

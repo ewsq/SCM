@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+
+    <!-- Custom fonts for this template -->
+    <link th:href="@{static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{static/css/sb-admin-2.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link th:href="@{static/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{static/css/layui.css}" >
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/dashboard}">
+            <div class="sidebar-brand-text mx-3">学生管理中心 <sup>TM</sup></div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - index -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/index}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>主页</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            功能
+        </div>
+
+        <!-- Nav Item - Resource -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/resourceManage}">
+                <i class="fa fa-file"></i>
+                <span>资源管理</span></a>
+        </li>
+
+        <!-- Nav Item - Comment -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/commentM}">
+                <i class="fa fa-comment"></i>
+                <span>留言</span></a>
+        </li>
+
+        <!-- Nav Item - User_role -->
+        <li class="nav-item" sec:authorize="hasRole('ROLE_Admin')">
+            <!--<li class="iconitem" sec:authorize="h">-->
+            <a class="nav-link" th:href="@{/role}">
+                <i class="fa fa-unlock-alt"></i>
+                <span>权限</span></a>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/charts}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>图表</span></a>
+        </li>
+
+        <!-- Nav Item - Upload -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/upload}">
+                <i class="fa fa-arrow-up"></i>
+                <span>信息上传</span></a>
+        </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/tables}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>学生数据</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <form class="form-inline">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </form>
+
+                <!-- Topbar Search -->
+                <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="搜索..."
+                               aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <!-- Dropdown - Messages -->
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                             aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small"
+                                           placeholder="搜索..." aria-label="Search"
+                                           aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+                   <!--  Nav Item - Alerts
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bell fa-fw"></i>
+                            &lt;!&ndash; Counter - Alerts &ndash;&gt;
+                            <span class="badge badge-danger badge-counter">3+</span>
+                        </a>
+                        &lt;!&ndash; Dropdown - Alerts &ndash;&gt;
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"
+                             aria-labelledby="alertsDropdown">
+                            <h6 class="dropdown-header">
+                                通知中心
+                            </h6>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-primary">
+                                        <i class="fas fa-file-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">2021.01.12</div>
+                                    <span class="font-weight-bold">新的月报已经生成！</span>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-success">
+                                        <i class="fas fa-donate text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">2021.2.1</div>
+                                    您一月份的工资已经到账！
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-warning">
+                                        <i class="fas fa-exclamation-triangle text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">2021.02.15</div>
+                                    账号安全提醒：请定期修改密码！
+                                </div>
+                            </a>
+                            <a class="dropdown-item text-center small text-gray-500" href="#">展开所有通知</a>
+                        </div>
+                    </li>-->
+
+                   <!--  Nav Item - Messages
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-envelope fa-fw"></i>
+                            &lt;!&ndash; Counter - Messages &ndash;&gt;
+                            <span class="badge badge-danger badge-counter">2</span>
+                        </a>
+                        &lt;!&ndash; Dropdown - Messages &ndash;&gt;
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"
+                             aria-labelledby="messagesDropdown">
+                            <h6 class="dropdown-header">
+                                消息
+                            </h6>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                    <img class="rounded-circle" th:src="@{static/images/undraw_profile_1.svg}"
+                                         alt="">
+                                    <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate">****</div>
+                                    <div class="small text-gray-500">老王 · 50分钟前</div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                    <img class="rounded-circle" th:src="@{static/images/undraw_profile_2.svg}"
+                                         alt="">
+                                    <div class="status-indicator"></div>
+                                </div>
+                                <div>
+                                    <div class="text-truncate">***</div>
+                                    <div class="small text-gray-500">小明 · 1天前</div>
+                                </div>
+                            </a>
+
+                            <a class="dropdown-item text-center small text-gray-500" href="#">展开所有消息</a>
+                        </div>
+                    </li>-->
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="name"></span>
+                            <!--<span class="mr-2 d-none d-lg-inline text-gray-600 small">小明 老师</span>-->
+                            <img class="img-profile rounded-circle"
+                                 th:src="@{static/images/undraw_profile.svg}">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                个人
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                设置
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                活动
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                退出
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">留言信息管理</h1>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary" style="display:inline-block;">留言内容</h6>
+                    </div>
+                    <div class="card-body">
+                        <table id="demo" lay-filter="test"></table>
+
+                        <form class="layui-form" action="/editComment" method="post" id="test123" style="display: none; padding: 50px;">
+                            <!--发送数据用-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">用户id</label>
+                                <div class="layui-input-inline">
+                                    <input disabled="disabled" type="text" name="userid" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="uid" style="width: 400px;background: #F0F8FF;">
+                                </div>
+                            </div>
+                            <!--展示用-->
+                            <div class="layui-form-item" style="display: none">
+                                <label class="layui-form-label">用户id</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="userid" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="uidSend" style="width: 400px;background: #F0F8FF;">
+                                </div>
+                            </div>
+                            <!--发送数据用-->
+                            <div class="layui-form-item" style="padding: 20px 0px 0px 0px">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="username" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="unameSend" style="width: 400px">
+                                </div>
+                            </div>
+                            <!--展示用-->
+                            <div class="layui-form-item" style="display: none">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="username" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="uname" style="width: 400px;background: #F0F8FF;">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" style="padding: 20px 0px 0px 0px">
+                                <label class="layui-form-label">留言内容</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="usercomment" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="ucomment" style="width: 400px">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" style="padding: 20px 0px 0px 0px">
+                                <label class="layui-form-label">留言时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="commenttime" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="mtime" style="width: 400px">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" style="padding: 20px 0px 0px 0px">
+                                <label class="layui-form-label">他人回复</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="leavemsg" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="lmsg" style="width: 400px">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; 2021</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">确定退出登录吗？</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">这将会清除您的登录信息</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                <a class="btn btn-primary" th:href="@{/logout}">退出</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{static/js/sb-admin-2.min.js}"></script>
+
+<!-- Page level plugins -->
+<script th:src="@{static/vendor/datatables/datatables.min.js}"></script>
+<script th:src="@{static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+<!-- Page level custom scripts -->
+<script th:src="@{static/js/demo/datatables-demo.js}"></script>
+<script type="text/javascript" th:src="@{static/js/layui.all.js}"></script>
+<script type="text/javascript" th:src="@{static/layer/layer.js}"></script>
+<script type="text/html" id="toolbarDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit" id="">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use(['table','jquery'], function(){
+        var table = layui.table;
+        var $ = layui.jquery;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 400
+            ,url: '/getAllMsg' //数据接口
+            ,page: false //开启分页
+            ,cols: [
+                [ //表头
+                    {field: 'uid', title: 'ID', width:120, sort: true, fixed: 'left'}
+                    ,{field: 'name', title: '姓名', width:200}
+                    ,{field: 'text', title: '留言内容', width:200}
+                    ,{field: 'time', title: '留言时间', width:200}
+                    ,{field: 'leaveMsg', title: '他人回复', width:200}
+                    ,{fixed: 'right', width:200, align:'center', toolbar: '#toolbarDemo'}
+                ]
+            ]
+        });
+
+        //工具条事件
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            if(layEvent === 'del'){ //删除
+                var id = data.uid;
+                layer.confirm('真的删除行么', function(data, index){
+                    alert(id);
+                    $.ajax({
+                        url: "/deleteComment",
+                        type: "POST",
+                        contentType: 'application/json;charset=utf-8',
+                        data: JSON.stringify(id),
+                        success: function (msg) {
+                            if (msg === "200") {
+                                //删除这一行
+                                obj.del();
+                                //关闭弹框
+                                layer.close();
+                                layer.msg("删除成功", {icon: 6});
+                            } else {
+                                layer.msg("删除失败", {icon: 5});
+                            }
+                        }
+                    });
+                    return false;
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                //do something
+                layer.open({
+                    resize: false,
+
+                    closeBtn: 2,
+                    move: false,
+                    type: 1,
+                    title: '留言内容修改',
+                    shadeClose: true,
+                    shade: 0.8,
+                    scrollbar: false,
+                    area: ['700px', '90%'],
+                    shadeClose: false,
+
+                    content: $('#test123') //iframe的url
+                });
+                //同步更新缓存对应的值
+                obj.update({
+                    id: data.uid
+                    ,username: data.name
+                    ,sex: data.text
+                    ,age: data.time
+                    ,birth: data.leaveMsg
+                });
+                console.log(data);
+                $('#uid').val(data.uid);
+                $('#uidSend').val(data.uid);
+                $('#uname').val(data.name);
+                $('#unameSend').val(data.name);
+                $('#ucomment').val(data.text);
+                $('#mtime').val(data.time);
+                $('#lmsg').val(data.leaveMsg);
+            }
+        });
+
+    });
+
+
+</script>
+</body>
+
+</html>

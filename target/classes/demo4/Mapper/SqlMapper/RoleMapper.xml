@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo4.Mapper.RoleMapper">
+    <insert id="addRole" parameterType="map">
+        insert into user_role(uid,rid) values (#{uid}, #{rid});
+     </insert>
+
+    <select id="getAllRole" resultType="UserRole">
+        select u.id,u.username,r.about
+        from role r, user_role ur, user u
+        where u.id=ur.uid and ur.rid=r.id
+    </select>
+
+    <update id="editRole" parameterType="UserRole">
+        update user_role set rid=(select id from role where about=#{about}) where uid=#{id}
+    </update>
+
+    <delete id="deleteRole" parameterType="int">
+        delete from user_role where uid=#{id}
+    </delete>
+
+    <insert id="addStudentRole" parameterType="Map">
+        insert into user_role(uid,rid) values (#{id},#{rid})
+    </insert>
+</mapper>

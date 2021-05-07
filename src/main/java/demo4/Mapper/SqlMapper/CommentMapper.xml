@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo4.Mapper.CommentMapper">
+    <select id="getAllMsg" resultType="Comment">
+        select * from comment where 1=1
+
+     </select>
+
+    <update id="addComment" parameterType="AddComment">
+        update comment set leaveMsg=#{leaveMsg} where uid=#{id}
+
+    </update>
+
+    <insert id="comment" parameterType="Comment">
+        insert comment(uid,name,text,time,leaveMsg) values
+        (#{uid},#{name},#{text},#{time},'')
+    </insert>
+
+    <update id="updateComment" parameterType="Comment">
+        update comment set text=#{text}, time=#{time}, leaveMsg=#{leaveMsg} where uid=#{uid}
+    </update>
+
+    <select id="selectCommentById" parameterType="int" resultType="Comment">
+        select * from comment where uid=#{uid};
+    </select>
+
+    <delete id="deleteCommentById" parameterType="int">
+        delete from comment where uid=#{id}
+    </delete>
+
+    <update id="updateProfile" parameterType="map">
+        update comment set name=#{name} where uid=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,41 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      force: true
+
+
+spring:
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://121.5.246.180:3306/SCM?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    #url: jdbc:mysql://172.17.0.3/SCM?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  profiles:
+    active: info
+  thymeleaf:
+     #prefix：指定模板所在的目录
+    check-template-location: true  #check-tempate-location: 检查模板路径是否存在
+    cache: false
+
+    mode: HTML
+  security:
+    user:
+      name: admin
+      password: 123
+  resources:
+    static-locations: classpath:/static,classpath:/public,classpath:/resources,classpath:/META-INF/resources
+  mvc:
+    static-path-pattern: /static/**
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+mybatis:
+  type-aliases-package: demo4.pojo
+  #mapper-locations: demo4/Mapper/SqlMapper/*.xml
+  mapper-locations: demo4/Mapper/SqlMapper/*.xml

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULearn课程</title>
+
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{static/css/layui.css}" rel="stylesheet">
+    <link th:href="@{static/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{static/css/scojs.css}" rel="stylesheet">
+    <link th:href="@{static/css/colpick.css}" rel="stylesheet">
+    <link th:href="@{static/css/main.css}" rel="stylesheet" >
+
+    <link rel="stylesheet" type="text/css" th:href="@{static/css/normalize.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{static/css/htmleaf-demo.css}">
+    <link rel='stylesheet' th:href='@{static/css/jquery.cardtabs.css}'>
+    <link rel='stylesheet' th:href='@{static/css/demo2.css}'>
+
+    <script th:src="@{static/js/layui.all.js}"></script>
+
+    <style>
+        a:hover { color: #F00; text-decoration: underline;background-color: #7c9192}
+    </style>
+</head>
+<body>
+    <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item layui-this layui-col-md-offset1"><a th:href="@{/index}">ULearn课堂</a></li>
+        <li class="layui-nav-item layui-col-md-offset5 "><i class="layui-nav-bar"></i> <a href="">我的学习</a></li>
+        <li class="layui-nav-item "><a href="">通知中心</a></li>
+        <li class="layui-nav-item "><a href="">最新活动</a></li>
+        <li class="layui-nav-item "><a href="">关注我们</a></li>
+        <li class="layui-nav-item ">
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    我
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                    <a class="dropdown-item " th:href="@{/profile}" style="color: #0C0C0C">个人信息修改</a>
+                    <a class="dropdown-item " href="#" style="color: #0C0C0C">设置</a>
+                    <a class="dropdown-item " th:href="@{/logout}" style="color: #0C0C0C">退出</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="htmleaf-container" style="color: #0f0f10" id="showResource">
+
+        <div class="container" style="width:960px;background:#fff;margin:20px auto;padding:20px;display: none">
+            <h2>主题示例</h2>
+            <h3>Graygreen 主题</h3>
+            <div class='example'>
+                <div class='tabsholder'>
+                    <div data-tab="介绍">
+                        Eat a plant, kill a hand sit and stare so stare out the window for lick arm hair. Then cats take over the world. Purr with tail in the air. Chirp at birds. Russian blue toy mouse squeak roll over so eat prawns daintily with a claw then lick paws clean wash down prawns with a lap of carnation milk then retire to the warmest spot on the couch to claw at the fabric before taking a catnap and find something else more interesting, so immediately regret falling into bathtub, purr for no reason, roll over and sun my belly.<br /><br /> Mesmerizing birds hiss and stare at nothing then run suddenly away hide when guests come over if it fits, i sits for loves cheeseburgers but rub whiskers on bare skin act innocent and tuxedo cats always looking dapper. I am the best sit in window and stare oooh, a bird, yum and chase ball of string and my left donut is missing, as is my right climb leg. Hate dog swat turds around the house claw drapes burrow under covers, but lie on your belly and purr when you are asleep. Climb leg going to catch the red dot today going to catch the red dot today scratch the furniture and brown cats with pink ears. Cough hairball on conveniently placed pants pelt around the house and up and down stairs chasing phantoms, or play riveting piece on synthesizer keyboard. Meow meow. Destroy couch. Meowwww.
+                    </div>
+                    <div data-tab="附件下载">
+                        <a th:href="@{/downloadRes/2}">Poke single-origin coffee chartreuse venmo seitan letterpress, sriracha hammock hot chicken cold-pressed church-key. Next level listicle taiyaki, heirloom mixtape literally bushwick keffiyeh narwhal etsy post-ironic jianbing ennui unicorn. Ugh schlitz hell of celiac put a bird on it. Post-ironic butcher everyday carry, iPhone af shaman cronut asymmetrical leggings hoodie vice air plant +1 keytar 3 wolf moon. 90's post-ironic cold-pressed succulents master cleanse. Jianbing neutra franzen, gochujang mumblecore heirloom coloring book literally pok pok 3 wolf moon brunch offal. Raw denim taxidermy lumbersexual, paleo venmo thundercats retro pitchfork chicharrones raclette forage banjo authentic ennui.
+                        <br /><br />
+                        Vaporware farm-to-table glossier brooklyn jean shorts retro green juice slow-carb. Enamel pin snackwave hexagon knausgaard. Gluten-free cloud bread raclette bespoke, roof party art party meh adaptogen pok pok try-hard. Mumblecore aesthetic occupy, schlitz knausgaard live-edge ugh authentic fashion axe vape mixtape pork belly tacos. Bushwick YOLO hashtag, live-edge jean shorts crucifix hexagon jianbing street art food truck semiotics. Deep v food truck fap roof party ennui. Mixtape vaporware shaman pickled snackwave YOLO.
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script th:src="@{static/js/jquery.min.js}"></script>
+    <script>window.jQuery || document.write('<script th:src="@{static/js/jquery.min.js}"><\/script>')</script>
+    <script type='text/javascript' th:src='@{static/js/jquery.cardtabs.js}'></script>
+
+
+
+<!--    <script type='text/javascript'>
+        $('.tabsholder3').cardTabs({theme: 'graygreen'});
+    </script>-->
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                url: "/getResource",
+                async: false,
+                contentType: 'application/json;charset=utf-8', //设置请求头信息
+                dataType: "json",
+                success: function (res) {
+
+                    for(var i=0; i<res.length; i++)
+                    {
+                        var ResTable = "";
+                        ResTable += '<div class="container" style="width:960px;background:#fff;margin:20px auto;padding:20px;">'
+                            + '<h2>' + res[i].title + '</h2>'
+                            + '<h3>' + res[i].title2 + '</h3>'
+                            + '<div class="example">'
+                            + '<div class="tabsholder' + i +'">'
+                            + '<div data-tab="介绍">' + res[i].intro
+                            + '</div>'
+                            + '<div data-tab="附件下载">'
+                            + '<a href="/downloadRes/' + res[i].id + '" style="color: #0C0C0C">' + res[i].filepath + '</a>'
+                            + '</div>'
+                            + '</div>'
+                            + '</div>'
+                            + '</div>';
+                        $("#showResource").append(ResTable);
+                        $('.tabsholder'+i).cardTabs({theme: 'graygreen'});
+                    }
+
+
+
+
+
+                },
+                error: function (result) {
+                    errorToast(result.msg);
+                }
+            });
+            $('.tabsholder').cardTabs({theme: 'graygreen'});
+
+
+        });
+
+    </script>
+
+    <script th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
