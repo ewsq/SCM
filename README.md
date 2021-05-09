@@ -6,5 +6,5 @@
 # SCM
 在线学习系统
 =======
-images/index.png
+![image](https://github.com/AngelSXD/sxd_first_repository/blob/master/images/20160615165142.png)
 # 
